@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="utf-8">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+      <!-- Global site tag (gtag.js) - Google Analytics -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-77070208-4"></script>
+      <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'UA-77070208-4');
+      </script>
+
+      <title>Secret Santa</title>
+  
+      <script>
+          var inputRowCount = 3;
+
+          $(document).ready(function(){
+            $("#addARowButton").click(function(){
+                inputRowCount = inputRowCount + 1;
+                $("#inputFieldsDiv").append("<div class='rowClass'>" + inputRowCount + ". <input type='text' size='20' name='participantName" + inputRowCount + "'><input type='text' size='15' name='participantEmailAddress" + inputRowCount + "'><br></div>");
+                document.getElementById("inputRowCount").value = inputRowCount;
+            });
+            $("#subtractARowButton").click(function(){
+                $("div.rowClass").last().remove();
+                if (inputRowCount > 3) {
+                    inputRowCount = inputRowCount - 1;
+                    document.getElementById("inputRowCount").value = inputRowCount;
+                }
+            });
+
+        });
+
+      </script>
+      <link rel="stylesheet" type="text/css" href="main.css">
+    </head>  
+  <body>
+      <h1>Secret Santa</h1>
+
+      <h3>This site will allow you to set up Secret Santa for your Christmas party/gathering!</h3>
+      
+      <h3>The way this works is simple:</h3>
+      <ol>
+        <li>Enter the names and phone numbers of the participants</li>
+        <li>Press the "Submit" button</li>
+        <li>Let your participants know to check their phones for their assignments!
+            <ul><li>Have them check for a text message from 612-440-2289</li></ul>
+        </li>
+        <li>Download or view the master list of assignments in case someone forgets<br> who they have!<a href="#" onclick="alert('Note: I do store all these lists plaintext on my server, deleting them all occasionally. If it makes you feel more secure, feel free to omit last names or even make up fake ones!');">*</a> </li>
+      </ol>
+
+      <form action='textMessageVersionWithForms.php' method="post">
+          Dollar Limit: $<input type="text" size='5' name="dollarLimit"><br><br>
+          
+          <span style='padding-left: 150px;padding-right: 25px;' >Participant name:</span>
+          <span style='padding-right:50px' >Phone number:</span>
+          <button type="button" id="subtractARowButton">-</button>
+          <button type="button" id="addARowButton">+</button>
+          <br>
+          <div id="inputFieldsDiv" >
+            1. <input type="text" size='20' name="participantName1"><input type="text" size='15' name="participantEmailAddress1"><br>
+            2. <input type="text" size='20' name="participantName2"><input type="text" size='15' name="participantEmailAddress2"><br>
+            3. <input type="text" size='20' name="participantName3"><input type="text" size='15' name="participantEmailAddress3"><br>
+          </div>
+        <br>
+          <input type="hidden" id="inputRowCount" name="inputRowCount" value="3">
+          <input type="submit" id="formSubmit">
+      </form>
+      
+  </body>
+</html>
